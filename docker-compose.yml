@@ -10,7 +10,7 @@ services:
         ports:
             - 80:80
         depends_on:
-            - symfony-base-api-fpm
+            - logbook-api-fpm
         networks:
             - logbook-network
 
