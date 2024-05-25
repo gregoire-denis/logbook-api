@@ -7,4 +7,4 @@ nelmio_api_doc:
       x-build:
   areas: # to filter documented areas
     path_patterns:
-      - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
+      - ^/api/v1/(?!/doc$) # Accepts routes under /api except /api/doc
