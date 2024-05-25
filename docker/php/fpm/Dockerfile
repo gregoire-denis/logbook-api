@@ -8,6 +8,7 @@ WORKDIR /app
 RUN apk --no-cache add \
     bash \
     git \
+    libpq-dev \
     libjpeg-turbo-dev \
     libpng-dev \
     libzip-dev \
@@ -22,7 +23,8 @@ RUN apk --no-cache add \
     make \
     autoconf 
 
-RUN docker-php-ext-install -j$(nproc) gd pdo pdo_mysql zip intl soap xsl opcache
+RUN docker-php-ext-configure pgsql -with-pgsql=/usr/bin/pgsql
+RUN docker-php-ext-install -j$(nproc) gd pgsql pdo pdo_mysql pdo_pgsql zip intl soap xsl opcache
 
 # XDebug
 COPY docker/php/fpm/etc/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
@@ -41,7 +43,6 @@ RUN chown -R 1000:1000 /app
 USER 1000:1000
 
 #Install Symfony dependencies
-ENV COMPOSER_CACHE_DIR=/app/.composer/cache
 RUN composer install --no-scripts --optimize-autoloader
 
 # Start PHP-FPM
