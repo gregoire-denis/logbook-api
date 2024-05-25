@@ -26,7 +26,7 @@ services:
             - logbook-network
 
     logbook-api-database:
-        container_name: symfony-base-api-database
+        container_name: logbook-api-database
         image: postgres:16-alpine
         environment:
             POSTGRES_USER: ${DATABASE_USER}
@@ -34,6 +34,16 @@ services:
             POSTGRES_DB: ${DATABASE_NAME}
         volumes:
             - pgdata:/var/lib/postgresql/data
+
+    logbook-api-adminer:
+        container_name: logbook-api-adminer
+        image: adminer
+        environment:
+            ADMINER_DEFAULT_DB_DRIVER: pgsql
+            ADMINER_DEFAULT_DB_HOST: ${DATABASE_HOST}
+            ADMINER_DEFAULT_DB_NAME: ${DATABASE_NAME}
+        ports:
+            - 8088:8080
 
 networks:
     logbook-network:
