@@ -1,3 +1,5 @@
+.PHONY: tests
+
 install: 
 	docker compose up -d
 	docker exec logbook-api-fpm composer install
@@ -18,7 +20,7 @@ code-quality:
 	@docker exec logbook-api-fpm vendor/bin/phpstan analyse src tests
 
 tests:
-	@docker exec logbook-api-fpm vendor/bin/phpunit tests
+	@docker exec logbook-api-fpm /bin/bash -c "APP_ENV=test XDEBUG_MODE=coverage vendor/bin/phpunit"
 
 qa: \
 	lint \
