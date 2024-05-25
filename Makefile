@@ -14,6 +14,7 @@ cache-clear:
 	@docker exec logbook-api-fpm bin/console cache:clear
 
 lint:
+	@docker exec logbook-api-fpm vendor/bin/rector process src
 	@docker exec logbook-api-fpm vendor/bin/php-cs-fixer fix src
 
 code-quality:
