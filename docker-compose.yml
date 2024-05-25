@@ -25,13 +25,18 @@ services:
         networks:
             - logbook-network
 
-    symfony-base-api-database:
+    logbook-api-database:
         container_name: symfony-base-api-database
         image: postgres:16-alpine
         environment:
             POSTGRES_USER: ${DATABASE_USER}
             POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
             POSTGRES_DB: ${DATABASE_NAME}
+        volumes:
+            - pgdata:/var/lib/postgresql/data
 
 networks:
     logbook-network:
+
+volumes:
+    pgdata:
